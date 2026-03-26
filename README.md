@@ -1,0 +1,74 @@
+# ⚖️ Cyber Judge (赛博判官) - The Burn Contract
+
+> 构建于 Solana 智能合约 构建链上誓言系统（AI 赛博判官）
+
+## 🌟 项目简介
+
+**Cyber Judge** 是一个深度结合了 **多模态大语言模型 (Vision LLM)** 与 **Solana 极速智能合约** 的“自我强制约束与机器对机器 (M2M) 经济”协议。
+
+用户将自己的数字资产（SOL）锁入智能合约，并当庭立下誓言（例如：“今晚跑完五公里”）。在挑战期结束前，用户必须向平台上传照片作为打卡凭证。
+系统背后运行着冷酷无情的 **AI 判官节点 (Oracle Agent)**，它会对图片进行极度严苛的视觉扫描。
+
+一旦验证通过，全额退款；
+**一旦验证未达标：我们将毫不留情地利用智能合约的强制性，把您的誓言和真金白银一起永远销毁（资金罚没给 AI 网络）！**
+
+### 💡 核心赛道亮点契合
+
+- **赛博抽鞭子 (Cyber-Whipping)**: 摒弃传统人防，通过智能合约不可篡改的特性与极高的资金风险，从心理和金融双重维度强行约束、督促人类完成目标。
+- **Agent 与 Agent 的经济体系 (x402 Protocol)**: 首创了核心算力调用前的 **微支付网关拦截系统**。人类或其它 Agent 节点如果想唤醒 AI 判官进行裁决，必须先使用 x402 协议向其钱包支付 `0.001 SOL` 的算力手续费。通过极低摩擦的微交易跑通了真实的 Machine-to-Machine 经济闭环。
+- **无限契约并发 (Multi-Pledge)**: 重构了底层的 PDA 生成逻辑，引入前端时间戳作为动态 Seed，一举攻克了 Solana “单钱包单账本”的限制。现在同一用户可以无限制地同时发起无数场独立且互不干扰的誓言挑战！
+- **全链路透明的链上溯源**: 在签发入口处显式挂载智能合约地址；在誓言大厅中，每一条记录都永久铭刻真实的链上交易 Hash，任何人都能直接穿透跳转至 Explorer 进行数据校验，实现 100% 的去中心化信任。
+
+---
+
+## 🛠 系统技术架构
+
+1. **前端交互中枢 (Next.js 14 + Tailwind CSS + Framer Motion)**
+   提供极具压迫感和视觉冲击力的暗黑赛博朋克深沉氛围交互，完整接驳 Wallet Adapter 支持幻影 (Phantom) 钱包。彻底抛弃原生弹窗，引入深色毛玻璃高级动画模态框机制，给予极致的 Web3 沉浸体验。
+2. **AI 法庭节点网络 (Next.js API Route + OpenAI Vision)**
+   搭载 GPT-4o 多模态视觉模型，在云端作为权威 Oracle 验证证据，并根据内置私钥作为 Agent 节点直接向主网构造签名下发宣判指令。
+3. **链上死手合约 (Solana Anchor Program)**
+   轻量、安全、纯粹的基础金库合约。全面适配了 `@coral-xyz/anchor ^0.32.1` 最新标准，拥有锁仓 (`deposit`) 和决断 (`resolve`) 方法，严格限制仅信任指定的 AI 节点签名，强硬保障资金安全与铁律。
+
+---
+
+## 🚀 本地运行与配置指南 
+
+### 1. 启动 Web 页面与 AI 引擎后端
+确保电脑已安装 `Node.js` (推荐 `v18.x` 或 `v20.x`)。
+
+```bash
+# 1. 移步进入前端工程目录
+cd web
+
+# 2. 安装所有环境依赖项 (附带忽略兼容选项保护环境纯净)
+npm install --legacy-peer-deps
+
+# 3. 环境变量配置
+# 复制 `.env.example` 为 `.env.local` 并填入您的秘钥
+cp .env.example .env.local
+
+# 4. 启动本地极速开发与演示服务器
+npm run dev
+```
+
+智能合约地址 ：[https://explorer.solana.com/address/42F4X3rrvUsbTBUHiEj8fMQzuqkD32y5imeEGtB2KZE9?cluster=devnet]
+
+此时打开浏览器访问: **[http://localhost:3000](http://localhost:3000)**
+
+### 2. 部署关联的 Solana 智能合约
+为了保障开发者和评委能以在几秒钟内实现极速体验，我们的核心 Anchor 智能合约提取成了零门槛部署的纯净文件。
+
+1. 智能合约地址 ：**[https://explorer.solana.com/address/42F4X3rrvUsbTBUHiEj8fMQzuqkD32y5imeEGtB2KZE9?cluster=devnet] 42F4X3rrvUsbTBUHiEj8fMQzuqkD32y5imeEGtB2KZE9**
+
+2. 智能合约代码：在本项目根目录下的 **`anchor_contract_for_solpg.rs`**
+
+
+---
+
+## 🎮 实操游玩演示
+1. **获取代币**：确保在幻影 (Phantom) 钱包切换至 `Devnet` 网络并持有测试用的 SOL 筹码。
+2. **连接并签署**：网页右上角授权钱包，在面板上输入您的誓言目标（"今晚禁食"）和抵押金（0.5 SOL），点击签署入金。
+3. **提交与 x402 鉴权**：作为反向测试，故意上传一张炸鸡的照片作为证据。随后唤醒 Agent。
+4. **模拟 M2M 转账**：弹窗拦截！系统强行要求您额外支付少量 SOL 充当 AI 的脑力电费。
+5. **降下惩戒**：体验资金被彻底“抽鞭子”强行粉碎的快感动画！ 
