@@ -52,8 +52,6 @@ cp .env.example .env.local
 npm run dev
 ```
 
-智能合约地址 ：[https://explorer.solana.com/address/42F4X3rrvUsbTBUHiEj8fMQzuqkD32y5imeEGtB2KZE9?cluster=devnet]
-
 此时打开浏览器访问: **[http://localhost:3000](http://localhost:3000)**
 
 ### 2. 部署关联的 Solana 智能合约
